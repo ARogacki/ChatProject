@@ -1,0 +1,16 @@
+<form (ngSubmit)="OnSubmit()" [formGroup]="loginForm">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" list="suggestions" class="form-control" formControlName="username" (ngModelChange)="Suggest()" required>
+    <datalist id="suggestions">
+      <option *ngFor="let c of suggestions" [value]="c.name">{{c.name}}</option>
+    </datalist>
+  </div>
+
+  <div class="form-group">
+    <label for="room">Room</label>
+    <input type="text" class="form-control" id="room" formControlName="room"
+           required>
+  </div>
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>

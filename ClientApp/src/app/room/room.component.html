@@ -1,0 +1,43 @@
+<div id="container">
+  <div class="container mt-5">
+    <h1 *ngIf="room">Room: {{room}}</h1>
+    <input type="text" class="mt-3 mb-3 mr-3" [(ngModel)]="text" (ngModelChange)="updateState()">
+    <button class="btn btn-primary" [disabled]="text.length==0" (click)="sendMessage()">Send Message</button>
+    <h4 class="mb-3">List of Messages</h4>
+
+    <div *ngIf="messages.length==0">
+      <p>You haven't send or received messages</p>
+    </div>
+    <div *ngIf="messages.length>0">
+      <p>{{messages.length}}</p>
+    </div>
+    <div *ngFor="let m of signalRService.messages">
+      <div class="mb-2 mt-2">
+        <div><strong>Author</strong> {{m.Author}}</div>
+        <div><strong>Date</strong> {{m.DateTime}}</div>
+        <div><strong>Message</strong> {{m.Text}}</div>
+        <hr>
+      </div>
+    </div>
+  </div>
+  <div id="infoi">
+    <div *ngFor="let m of signalRService.users">
+      <ng-container *ngIf="m.State==='writing..'">
+        <div class="mb-2 mt-2" style="background-color: bisque">
+          <div><strong>ConnectionID</strong> {{m.ConnectionId}}</div>
+          <div><strong>Username</strong> {{m.Username}}</div>
+          <div><strong>State</strong> {{m.State}}</div>
+          <hr>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="m.State!=='writing..'">
+        <div class="mb-2 mt-2">
+          <div><strong>ConnectionID</strong> {{m.ConnectionId}}</div>
+          <div><strong>Username</strong> {{m.Username}}</div>
+          <div><strong>State</strong> {{m.State}}</div>
+          <hr>
+        </div>
+      </ng-container> 
+    </div>
+  </div>
+</div>
